@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="logo.jpeg" type="image/x-icon">
+  <title>SPARSH JWELLERS</title>
+</head>
+<style>
+  body {
+    background-color: #FBAB7E;
+    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 100vh;
+  }
+
+  .container {
+    background-color: rgba(255, 255, 255, 0.408);
+    padding: 15px 30px;
+    border-radius: 20px;
+  }
+
+  .priceTable {
+    display: flex;
+    justify-content: space-between;
+
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h1>Price Making calculator</h1>
+    <label for="Gold-Amount-base-price">Base
+      price of Gold(24ct):</label>
+    <input type="number" id="Gold-Amount-base-price" name="Gold-Amount-base-price" required><br><br>
+    <label for="Purity of Gold">Choose a Purity:</label>
+
+
+    <select id="Purity" required onchange="getMoney()">
+      <option value="--select an option--" selected disabled style="color: black;"></option>
+      <option value="18ct">18ct</option>
+      <option value="22ct">22ct</option>
+      <option value="24ct">24ct</option>
+    </select><br><br>
+    <!-- <div class="priceTable">
+
+      <div class="price">18 ct = ₹ <span id="18kPrice"></span> </div>
+      <div class="price">22 ct = ₹ <span id="22kPrice"></span></div>
+      <div class="price">24 ct = ₹ <span id="24kPrice"></span></div>
+    </div> -->
+
+
+
+    <label for="selected-gold-price">Selected Purity Price:</label>
+    <input type="number" id="selected-gold-price" name="selected-gold-price" readonly required><br><br>
+
+    <label for="gold-weight">GOLD(Gms):</label>
+    <input type="number" id="gold-weight" name="gold-weight" required><br><br>
+
+
+    <label for="Making-per-gms">Making per gms (in ₹):</label>
+    <input required type="number" id="Making-per-gms" name="Making-per-gms"><br><br>
+
+    <label for="Discount-Coupon">Discount Coupon (in %):</label>
+    <input type="number" id="Discount-Coupon" name="Discount-Coupon" required><br><br>
+
+
+
+
+    <label for="Total-Gold-rate">Gold Amount:</label>
+    <input type="number" id="Total-Gold-rate" name="Total-Gold-rate" placeholder="Calculated automatically" disabled
+      required><br><br>
+    <label for="Making-charges-Amount">Making charges:</label>
+    <input type="number" id="Making-charges-Amount" name="Making-charges-Amount" placeholder="Calculated automatically"
+      disabled required><br><br>
+
+    <label for="Gst">Gst @ 3%:</label>
+    <input type="number" id="Gst" name="Gst-@-3%" readonly disabled placeholder="Calculated automatically"><br><br>
+
+
+    <input type="submit" value="Submit" onclick="calculate()"><br><br>
+    <button onclick="reset()">Reset</button>
+    <br><br>
+
+    <h3>Net Amount= <span id="net_amount"></span> </h3>
+  </div>
+
+
+
+  <script>
+
+
+
+    let purity = document.getElementById("Purity");
+    let weight = document.getElementById("gold-weight");
+    let making_per_gram = document.getElementById("Making-per-gms");
+    let making_charges = document.getElementById("Making-charges-Amount");
+    let discount = document.getElementById("Discount-Coupon");
+    let gold_base_price = document.getElementById("Gold-Amount-base-price");
+    let selected_gold_price = document.getElementById("selected-gold-price")
+    let gst = document.getElementById("Gst");
+    let net_amount = document.getElementById("net_amount");
+    let Total_Gold_rate = document.getElementById("Total-Gold-rate");
+
+
+
+    const getMoney = () => {
+      console.log(purity.value);
+      if (purity.value == "18ct") {
+
+        selected_gold_price.value = gold_base_price.value * 78 / 100
+
+      }
+      else if (purity.value == "22ct") {
+
+        selected_gold_price.value = gold_base_price.value * 95 / 100
+      }
+      else if (purity.value == "24ct") {
+        selected_gold_price.value = gold_base_price.value;
+
+      }
+    }
+    const calculate = () => {
+      // purity.value 
+      // weight.value
+      // making_per_gram.value = ''
+      // discount.value = ''
+      // gold_base_price.value = ''
+      // making_charges.value = ''
+      // gst.value = ''
+      // net_amount.value = ''
+
+      if (purity.value != '' && weight.value != '' && making_per_gram.value != '' && discount.value != '' && gold_base_price.value != '') {
+        let total_making_charge = Math.floor(making_per_gram.value * weight.value);
+        let total_price = Math.floor(selected_gold_price.value / 10 * weight.value) + total_making_charge - (discount.value / 100 * making_per_gram.value) * weight.value;
+        let total_price_withGst = Math.floor(0.03 * total_price) + total_price;
+        gst.value = Math.floor(0.03 * total_price);
+        net_amount.innerText = "₹" + total_price_withGst;
+        making_charges.value = making_per_gram.value * weight.value - (discount.value / 100 * making_per_gram.value) * weight.value
+        Total_Gold_rate.value = selected_gold_price.value / 10 * weight.value
+      }
+      else {
+        alert("Please fill all the fields")
+      }
+
+
+
+    }
+    const reset = () => {
+
+      purity.value = ''
+      weight.value = ''
+      making_per_gram.value = ''
+      discount.value = ''
+      gold_base_price.value = ''
+
+      gst.value = ''
+      net_amount.innerText = ' '
+    }
+  </script>
+</body>
+
+</html>
