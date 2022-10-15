@@ -9,24 +9,50 @@
   <title>SPARSH JWELLERS</title>
 </head>
 <style>
-  body {
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  section {
     background-color: #FBAB7E;
     background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
-
-  }
-
-  body {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: center;
     align-content: center;
-    height: 100vh;
+
   }
 
-  .container {
+  .container1 {
     background-color: rgba(255, 255, 255, 0.408);
-    padding: 15px 30px;
+    padding: 10px 30px;
     border-radius: 20px;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+  }
+
+  .container2 {
+    background-color: rgba(255, 255, 255, 0.408);
+    padding: 10px 30px;
+    border-radius: 20px;
+    margin-top: 2%;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+  }
+
+  .container1 input,
+  select {
+    width: 100%;
+    margin-bottom: 5%;
+    border: 2px solid #F7CE68;
+    padding: 2px 0;
+    outline: none;
+  }
+
+  select {
+    width: 100%;
   }
 
   .priceTable {
@@ -34,70 +60,139 @@
     justify-content: space-between;
 
   }
+
+  .submit {
+    padding: 8px 16px;
+    width: 100%;
+    background-color: #F7CE68;
+    color: white;
+    border: none;
+    text-decoration: none;
+    width: 100%;
+    /* border: 3px solid #F7CE68; */
+    cursor: pointer;
+  }
+
+  .submit:hover {
+    background-color: #b79540;
+  }
+
+
+  .reset {
+    padding: 8px 16px;
+
+    background-color: white;
+    color: #F7CE68;
+    border: 2px solid #F7CE68;
+    cursor: pointer;
+    margin-bottom: 2%;
+  }
+
+  .container2 input {
+    background: transparent;
+    border: none;
+    font-size: x-large;
+    font-weight: bold;
+    margin: 0 0 5% 0;
+    color: white;
+  }
+
+
+
+  .container2 {
+    font-size: x-large;
+    font-weight: bold;
+  }
+
+  nav {
+    background-color: white;
+    display: block;
+  }
 </style>
 
 <body>
-  <div class="container">
-    <h1>Price Making calculator</h1>
-    <label for="Gold-Amount-base-price">Base
-      price of Gold(24ct):</label>
-    <input type="number" id="Gold-Amount-base-price" name="Gold-Amount-base-price" required><br><br>
-    <label for="Purity of Gold">Choose a Purity:</label>
+  <nav>
+    <center>
+      <div>
+        <img src="logo.jpeg" alt="" height="50px" width="auto">
+      </div>
+      <!-- <h3>Sparsh Jwellers</h3> -->
+    </center>
+  </nav>
+  <section style="padding-top: 5%; padding-bottom:5%;">
+    <div class="container1">
+      <center>
+        <h2>Price Making calculator</h2>
+      </center>
 
-
-    <select id="Purity" required onchange="getMoney()">
-      <option value="--select an option--" selected disabled style="color: black;"></option>
-      <option value="18ct">18ct</option>
-      <option value="22ct">22ct</option>
-      <option value="24ct">24ct</option>
-    </select><br><br>
-    <!-- <div class="priceTable">
-
-      <div class="price">18 ct = ₹ <span id="18kPrice"></span> </div>
-      <div class="price">22 ct = ₹ <span id="22kPrice"></span></div>
-      <div class="price">24 ct = ₹ <span id="24kPrice"></span></div>
-    </div> -->
-
-
-
-    <label for="selected-gold-price">Selected Purity Price:</label>
-    <input type="number" id="selected-gold-price" name="selected-gold-price" readonly required><br><br>
-
-    <label for="gold-weight">GOLD(Gms):</label>
-    <input type="number" id="gold-weight" name="gold-weight" required><br><br>
-
-
-    <label for="Making-per-gms">Making per gms (in ₹):</label>
-    <input required type="number" id="Making-per-gms" name="Making-per-gms"><br><br>
-
-    <label for="Discount-Coupon">Discount Coupon (in %):</label>
-    <input type="number" id="Discount-Coupon" name="Discount-Coupon" required><br><br>
+      <label for="Gold-Amount-base-price">Base price of Gold(24ct):</label>
+      <input type="number" id="Gold-Amount-base-price" name="Gold-Amount-base-price" required><br>
+      <label for="Purity of Gold">Choose a Purity:</label>
+      <select id="Purity" required onchange="getMoney()">
+        <option value="" selected disabled style="color: black;">--select an option--</option>
+        <option value="18ct">18ct</option>
+        <option value="22ct">22ct</option>
+        <option value="24ct">24ct</option>
+      </select><br>
+      <!-- <div class="priceTable">
+    
+          <div class="price">18 ct = ₹ <span id="18kPrice"></span> </div>
+          <div class="price">22 ct = ₹ <span id="22kPrice"></span></div>
+          <div class="price">24 ct = ₹ <span id="24kPrice"></span></div>
+        </div> -->
 
 
 
+      <label for="selected-gold-price">Selected Purity Price:
+        <input type="number" id="selected-gold-price" name="selected-gold-price" readonly required><br>
+      </label>
+      <label for="gold-weight">GOLD(Gms):
+        <input type="number" id="gold-weight" name="gold-weight" required><br>
+      </label>
 
-    <label for="Total-Gold-rate">Gold Amount:</label>
-    <input type="number" id="Total-Gold-rate" name="Total-Gold-rate" placeholder="Calculated automatically" disabled
-      required><br><br>
-    <label for="Making-charges-Amount">Making charges:</label>
-    <input type="number" id="Making-charges-Amount" name="Making-charges-Amount" placeholder="Calculated automatically"
-      disabled required><br><br>
-
-    <label for="Gst">Gst @ 3%:</label>
-    <input type="number" id="Gst" name="Gst-@-3%" readonly disabled placeholder="Calculated automatically"><br><br>
+      <label for="Making-per-gms">Making per gms (in ₹):
+        <input required type="number" id="Making-per-gms" name="Making-per-gms"><br>
+      </label>
+      <label for="Discount-Coupon">Discount Coupon (in %):
+        <input type="number" id="Discount-Coupon" name="Discount-Coupon" required><br>
+      </label>
 
 
-    <input type="submit" value="Submit" onclick="calculate()"><br><br>
-    <button onclick="reset()">Reset</button>
-    <br><br>
 
-    <h3>Net Amount= <span id="net_amount"></span> </h3>
-  </div>
+
+
+      <div class="submission">
+        <div>
+          <a class="submit" onclick="calculate()" href="#container2">Calculate</a>
+          <button onclick="reset()" class="reset">Reset</button>
+
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="container2" id="container2">
+      <label for="Total-Gold-rate">Gold Amount</label><br>
+      <input type="number" id="Total-Gold-rate" name="Total-Gold-rate" placeholder="Calculated automatically" disabled
+        required><br>
+      <label for="Making-charges-Amount">Making charges</label><br>
+      <input type="number" id="Making-charges-Amount" name="Making-charges-Amount"
+        placeholder="Calculated automatically" disabled required><br>
+
+      <label for="Gst">Gst @ 3%</label><br>
+      <input type="number" id="Gst" name="Gst-@-3%" readonly disabled placeholder="Calculated automatically"><br>
+      <div>
+        <h3>Net Amount
+          <h2 style="color: white;" id="net_amount">₹ 0</h2>
+        </h3>
+      </div>
+    </div>
+  </section>
 
 
 
   <script>
-
 
 
     let purity = document.getElementById("Purity");
