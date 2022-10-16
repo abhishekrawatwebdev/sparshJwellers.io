@@ -63,13 +63,10 @@
 
   .submit {
     padding: 8px 16px;
-    width: 100%;
     background-color: #F7CE68;
     color: white;
     border: none;
     text-decoration: none;
-    width: 100%;
-    /* border: 3px solid #F7CE68; */
     cursor: pointer;
   }
 
@@ -153,7 +150,7 @@
       <label for="Making-per-gms">Making per gms (in ₹):
         <input required type="number" id="Making-per-gms" name="Making-per-gms"><br>
       </label>
-      <label for="Discount-Coupon">Discount Coupon (in %):
+      <label for="Discount-Coupon">Coupon (in %):
         <input type="number" id="Discount-Coupon" name="Discount-Coupon" required><br>
       </label>
 
@@ -162,10 +159,14 @@
 
 
       <div class="submission">
-        <div>
-          <a class="submit" onclick="calculate()" href="#container2">Calculate</a>
+        <div style="display: flex;justify-content: space-between;">
+          <button class="submit" onclick="calculate()" href="#container2">Calculate</button>
           <button onclick="reset()" class="reset">Reset</button>
-
+          <div style="display: flex;flex-direction: column;justify-content: center;">
+            <h3>Net Amount
+              <h2 id="net_amount2">₹ 0</h2>
+            </h3>
+          </div>
         </div>
 
       </div>
@@ -204,6 +205,7 @@
     let selected_gold_price = document.getElementById("selected-gold-price")
     let gst = document.getElementById("Gst");
     let net_amount = document.getElementById("net_amount");
+    let net_amount2 = document.getElementById("net_amount2");
     let Total_Gold_rate = document.getElementById("Total-Gold-rate");
 
 
@@ -224,6 +226,9 @@
 
       }
     }
+
+
+
     const calculate = () => {
       // purity.value 
       // weight.value
@@ -233,33 +238,40 @@
       // making_charges.value = ''
       // gst.value = ''
       // net_amount.value = ''
+      let total_price;
 
-      if (purity.value != '' && weight.value != '' && making_per_gram.value != '' && discount.value != '' && gold_base_price.value != '') {
+      if (purity.value != '' && weight.value != '' && making_per_gram.value != '' && gold_base_price.value != '') {
         let total_making_charge = Math.floor(making_per_gram.value * weight.value);
-        let total_price = Math.floor(selected_gold_price.value / 10 * weight.value) + total_making_charge - (discount.value / 100 * making_per_gram.value) * weight.value;
+        if (discount.value != '') {
+          total_price = Math.floor(selected_gold_price.value / 10 * weight.value) + total_making_charge - (discount.value / 100 * making_per_gram.value) * weight.value;
+          making_charges.value = Math.floor(making_per_gram.value * weight.value - (discount.value / 100 * making_per_gram.value) * weight.value);
+        }
+        else {
+          total_price = Math.floor(selected_gold_price.value / 10 * weight.value) + total_making_charge * weight.value;
+          making_charges.value = Math.floor(making_per_gram.value * weight.value);
+        }
         let total_price_withGst = Math.floor(0.03 * total_price) + total_price;
         gst.value = Math.floor(0.03 * total_price);
-        net_amount.innerText = "₹" + total_price_withGst;
-        making_charges.value = making_per_gram.value * weight.value - (discount.value / 100 * making_per_gram.value) * weight.value
-        Total_Gold_rate.value = selected_gold_price.value / 10 * weight.value
+        net_amount.innerText = "₹" + Math.floor(total_price_withGst);
+        net_amount2.innerText = "₹" + Math.floor(total_price_withGst);
+        Total_Gold_rate.value = Math.floor(selected_gold_price.value / 10 * weight.value);
       }
       else {
-        alert("Please fill all the fields")
+        alert("Please fill all the fields");
       }
 
 
 
     }
     const reset = () => {
-
       purity.value = ''
       weight.value = ''
       making_per_gram.value = ''
       discount.value = ''
       gold_base_price.value = ''
-
       gst.value = ''
       net_amount.innerText = ' '
+      net_amount2.innerText = ' '
     }
   </script>
 </body>
