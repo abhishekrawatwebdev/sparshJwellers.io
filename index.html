@@ -105,6 +105,19 @@
     background-color: white;
     display: block;
   }
+
+  footer {
+    color: white;
+    font-size: small;
+    padding: 2px 0;
+    background-color: #353535;
+
+    text-align: center;
+  }
+
+  footer a {
+    color: white;
+  }
 </style>
 
 <body>
@@ -190,6 +203,11 @@
       </div>
     </div>
   </section>
+  <footer>
+    <!-- &copy; -->
+    Made with &hearts; in Shahjahanpur | developed by <a href="https://github.com/abhishekrawatwebdev">Abhishek
+      Rawat</a>
+  </footer>
 
 
 
@@ -270,8 +288,10 @@
       discount.value = ''
       gold_base_price.value = ''
       gst.value = ''
-      net_amount.innerText = ' '
-      net_amount2.innerText = ' '
+      net_amount.innerText = "₹ 0"
+      net_amount2.innerText = "₹ 0"
+      making_charges.value = ''
+      Total_Gold_rate.value = ''
     }
   </script>
 </body>
